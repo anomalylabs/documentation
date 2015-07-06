@@ -1,0 +1,53 @@
+{#
+title: Core Conventions
+sections:
+    - Structure
+    - Transforming
+    - Property Handlers
+#}
+
+{% extends "fizl::layouts/documentation" %}
+
+{% block content %}
+    {% markdown %}
+    The Coding Standards document describes the coding standards for the AnomalyLabs projects and first party addons and packages.
+    This document describes coding standards and **conventions** used in the Streams Platform and first party addons and packages
+    to make addon development more consistent, predictable and automatable.
+
+    You are highly encouraged to follow them in your own code, but you do not have to.
+
+
+    ## {{ html_anchor('structure', 'Structure') }}
+
+    When building addons or packages that use the services in the Streams Platform package it is highly suggested to
+    use a specific folder structure (and therefore namespace structure) in order to allow the Streams Platform to automate
+    as much as possible for you by default.
+
+    This is highly suggested but not required. You may use any class structure you wish and will only need to do a small amount
+    of additional work (like defining your custom collection instead of relyng on class transformation).
+
+    <script src="https://gist.github.com/RyanThompson/d82fe6e169dcf7c082ec.js"></script>
+
+
+    ## {{ html_anchor('transforming', 'Transforming') }}
+
+    Class sniffing or transforming is a practice used by core in where a `FooModel` class would transform to it's
+    collection counterpart `FooCollection` or it's table builder counterpart `Table\FooTableBuilder`.
+
+    Class sniffing and transformation is used heavily in core and allows developers to simply create the counterpart classess
+    and not worry about defining them in their calling classes.
+
+    The core will sniff out these classes when available and use them by default.
+
+
+    ## {{ html_anchor('property-handlers', 'Property Handlers') }}
+
+    Property handlers are a form of transforming described above. Many properties in core services can be handled by a
+    dedicated class. For example the property handler `FooTableBuilder` `$columns` property would be `FooTableColumns`
+    and by default, the `handle`.
+
+    Property handlers are called from Laravel's IoC container. In most cases the object who's property is being handled
+    will be passed to the handler as well as any other pertinant arguments.
+
+    {% endmarkdown %}
+{% endblock %}
