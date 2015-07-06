@@ -1,0 +1,17 @@
+<aside id="documentation" class="col-lg-6">
+
+    {% set sections = ['preface', 'getting-started'] %}
+
+    {% for section in sections %}
+        <h4>{{ str_humanize(section, '-') }}</h4>
+
+        <ul class="list-unstyled">
+            {% for page in fizl.pages.in('documentation/' ~ request_segment(2) ~ '/' ~ section) %}
+                <li>{{ html_link(page.path, page.title) }}</li>
+            {% endfor %}
+        </ul>
+
+        <br>
+    {% endfor %}
+
+</aside>

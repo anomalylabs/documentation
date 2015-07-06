@@ -21,33 +21,11 @@
 
 <div class="container">
 
-    <aside id="documentation" class="col-lg-6">
-
-        {% set sections = ['preface', 'getting-started'] %}
-
-        {% for section in sections %}
-            <h4>{{ str_humanize(section, '-') }}</h4>
-
-            <ul class="list-unstyled">
-                {% for page in fizl.pages.in('documentation/' ~ request_segment(2) ~ '/' ~ section) %}
-                    <li>{{ html_link(page.path, page.title) }}</li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-
-    </aside>
+    {% include "fizl::partials/sidebar" %}
 
     <div class="col-lg-18">
 
-        <h1>{{ template.page.title }}</h1>
-
-        <ul class="list-unstyled">
-            {% for section in template.page.sections %}
-                <li><a href="#{{ str_slug(section, '-') }}">{{ str_humanize(section, '-') }}</a></li>
-            {% endfor %}
-        </ul>
-
-        <hr>
+        {% include "fizl::partials/top" %}
 
         {% block content %}{% endblock %}
     </div>
