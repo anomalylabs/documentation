@@ -1,0 +1,89 @@
+<!doctype html>
+
+<!--[if lt IE 7]>
+<html class="nojs ms lt_ie7" lang="en"><![endif]-->
+<!--[if IE 7]>
+<html class="nojs ms ie7" lang="en"><![endif]-->
+<!--[if IE 8]>
+<html class="nojs ms ie8" lang="en"><![endif]-->
+<!--[if gt IE 8]>
+<html class="nojs ms" lang="en"><![endif]-->
+
+<html>
+
+<head>
+    {% include "theme::partials/metadata" %}
+</head>
+
+<body>
+
+{% include "theme::partials/header" %}
+
+<div class="container">
+
+    <aside id="documentation" class="col-lg-6">
+
+        <h4>Getting Started</h4>
+
+        {% for page in fizl_pages('documentation/3-0/getting-started') %}
+
+            {% for child in map.pages(page.path) %}
+                {{ html_link(child.path, child.title) }}
+            {% endfor %}
+
+        {% endfor %}
+
+        <h4>Getting Started</h4>
+
+        <ul class="list-unstyled list-condensed">
+            <li><a href="#">Introduction</a></li>
+            <li><a href="#">Streams Platform</a></li>
+            <li><a href="#">Installation</a></li>
+            <li><a href="#">Configuration</a></li>
+            <li><a href="#">Folder Structure</a></li>
+        </ul>
+
+        <h4>Services</h4>
+
+        <ul class="list-unstyled list-condensed">
+            <li><a href="#">Assets</a></li>
+            <li><a href="#">Images</a></li>
+            <li><a href="#">Forms</a></li>
+            <li><a href="#">Tables</a></li>
+            <li><a href="#">Trees</a></li>
+            <li><a href="#">Grids</a></li>
+        </ul>
+
+        <h4>Streams</h4>
+
+        <ul class="list-unstyled list-condensed">
+            <li><a href="#">Introduction</a></li>
+            <li><a href="#">Streams</a></li>
+            <li><a href="#">Fields</a></li>
+            <li><a href="#">Entries</a></li>
+        </ul>
+
+        <h4>Development</h4>
+
+        <ul class="list-unstyled list-condensed">
+            <li><a href="#">Introduction</a></li>
+            <li><a href="#">Modules</a></li>
+            <li><a href="#">Field Types</a></li>
+            <li><a href="#">Themes</a></li>
+            <li><a href="#">Plugins</a></li>
+            <li><a href="#">Extensions</a></li>
+            <li><a href="#">Blocks</a></li>
+        </ul>
+
+    </aside>
+
+    <div class="col-lg-18">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+{% include "theme::partials/footer" %}
+{% include "theme::partials/js" %}
+
+</body>
+</html>
