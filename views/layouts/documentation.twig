@@ -78,7 +78,7 @@
     </aside>
 
     <div class="col-lg-18">
-        {% block content %}{% endblock %}
+        {{ block('content')|markdown|raw }}
     </div>
 </div>
 
