@@ -1,9 +1,12 @@
 {#
 title: Core Conventions
+description: Core conventions in... core.
 sections:
     - Structure
     - Transforming
     - Property Handlers
+    - Property Evaluation
+    - Property Normalization
 #}
 
 {% extends "fizl::layouts/documentation" %}
@@ -31,23 +34,60 @@ sections:
 
     ## {{ html_anchor('transforming', 'Transforming') }}
 
-    Class sniffing or transforming is a practice used by core in where a `FooModel` class would transform to it's
-    collection counterpart `FooCollection` or it's table builder counterpart `Table\FooTableBuilder`.
+    Class sniffing or transforming is a practice used by core in where a base class like `FooModel` would transform to it's
+    resolving counterpart like `FooCollection`. The resolving class may also work backwards like a table builder `Table\FooTableBuilder`
+    looking for it's model counterpart `FooModel`.
 
-    Class sniffing and transformation is used heavily in core and allows developers to simply create the counterpart classess
-    and not worry about defining them in their calling classes.
+    Class sniffing and transformation is used heavily in core and allows developers to simply create the counterpart classes
+    and not worry about defining them in the calling classes.
 
-    The core will sniff out these classes when available and use them by default.
+    Class transformation is not required and is detected automatically. You may also define your resolving classes by
+    overriding their resolving methods like this:
+
+    <script src="https://gist.github.com/RyanThompson/266445d43824c77afeb2.js"></script>
 
 
     ## {{ html_anchor('property-handlers', 'Property Handlers') }}
 
     Property handlers are a form of transforming described above. Many properties in core services can be handled by a
-    dedicated class. For example the property handler `FooTableBuilder` `$columns` property would be `FooTableColumns`
-    and by default, the `handle`.
+    dedicated class. Property handlers are called from Laravel's IoC container. In most cases the object who's property is
+    being handled will be passed to the handler as well as any other important arguments.
 
-    Property handlers are called from Laravel's IoC container. In most cases the object who's property is being handled
-    will be passed to the handler as well as any other pertinant arguments.
+    Property handlers are not required and are detected automatically. You may also define your own handlers on the properties.
+
+    <script src="https://gist.github.com/RyanThompson/102888a4b09f0aea95ba.js"></script>
+
+
+    ## {{ html_anchor('property-evaluation', 'Property Evaluation') }}
+
+    Property evaluation is a practice in which property values that are closures are called through the IoC container.
+    In most cases the object who's property is being evaluated will be passed to the closure as well as any other important arguments.
+
+    Property evaluation is not required and is detected automatically. Properties are evaluated recursively as needed which
+    means that the whole property can be a closure or individual pieces of the property or both.
+
+    Since you can not define a class property with a closure in it here is an example of using a property handler that sets
+    the property using it's setter and includes a closure.
+
+    <script src="https://gist.github.com/RyanThompson/d009c024853781f47c03.js"></script>
+
+
+    ## {{ html_anchor('property-normalization', 'Property Normalization') }}
+
+    Property normalization is a practice in which property values only require minimal input from the dev and are later
+    normalized into full input.
+
+    Property normalization is not required and is detected automatically. Normalization varies and will be documented when supported.
+
+    Property normalization is sometimes determined by "registries". For example the button registry contains a set of pre-registered
+    buttons that can be defined by a simple string like `delete` and then either used as is or overriden by passing additional
+    properties.
+
+    Below is an example of minimal input, partial overriding, and full definition of the same basic button.
+
+    *Note that the icon property for the full definition is minimal input and will be later transformed as well.*
+
+    <script src="https://gist.github.com/RyanThompson/1f71012ca664fbfb7fa5.js"></script>
 
     {% endmarkdown %}
 {% endblock %}
