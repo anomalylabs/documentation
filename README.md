@@ -1,2 +1,1 @@
-# documentation
-Fizl content for V3 / Streams Platform documentation.
+# This repository exists only to accept documentation requests in the form of ISSUES. 
